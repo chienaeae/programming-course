@@ -38,6 +38,10 @@ double identity_discount(int identity_number) {
     }
 }
 
+double calculate_cost_to_pay(int identity_number, double cost_to_buy) {
+    return identity_discount(identity_number) * cost_to_buy;
+}
+
 string identity(int identity_number) {
     switch (identity_number) {
         case 1:
@@ -76,10 +80,13 @@ int main() {
     cout << "請輸入消費總額: ";
     cost_to_buy = input_integer();
 
+    double temp = identity_discount(identity_number);
+    double discount = (int)(temp * 100) % 10 == 0 ? temp * 10 : temp * 100;
+
     cout << "姓名 " << name << endl;
-    cout << "身份類別 " << identity(identity_number) << ", 折扣為 " << identity_discount(identity_number) * 100 << "折" << endl;
+    cout << "身份類別 " << identity(identity_number) << ", 折扣為 " << discount << "折" << endl;
     cout << "消費金額 " << cost_to_buy << "元" << endl;
-    cout << "應付金額 " << cost_to_buy * identity_discount(identity_number) << "元" << endl;
+    cout << "應付金額 " << calculate_cost_to_pay(identity_number, cost_to_buy) << "元" << endl;
 
     return 0;
 }
